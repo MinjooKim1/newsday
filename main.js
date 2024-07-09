@@ -1,5 +1,7 @@
 const getLatestNews = async () => {
-  const url = URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=`);
+  const url = new URL(
+    `https://serene-cheesecake-72297b.netlify.app/top-headlines`
+  );
   const response = await fetch(url);
   const data = await response.json();
   let news = data.articles;
