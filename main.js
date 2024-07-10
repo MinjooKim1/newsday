@@ -1,7 +1,5 @@
 const getLatestNews = async () => {
-  let url = new URL(
-    `https://serene-cheesecake-72297b.netlify.app/top-headlines`
-  );
+  let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/`);
 
   const response = await fetch(url);
   const data = await response.json();
