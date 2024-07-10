@@ -1,0 +1,103 @@
+.head-line{
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+.head-line svg{
+    width: 430px;
+}
+.menus{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-bottom: double 4px black;
+}
+.menus button{
+    border: none;
+    background: none;
+    margin: 5px;
+}
+.menus button:hover{
+    background-color: beige;
+}
+.news-img-size{
+    max-width: 100%;
+    max-height: 250px;
+}
+.news{
+    border-bottom: 1px solid black;
+}
+.side-menu{
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: antiquewhite;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px; 
+    }
+    
+    #side-menu>button {
+        position: absolute;
+        border: none;
+        background: none;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 60px;
+    }
+    
+    .side-menu-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .side-menu-list button {
+        border: none;
+        background: none;
+        padding: 7px;
+    
+    }
+    
+    .side-menu-list button:hover {
+        background-color: burlywood;
+    }
+    i{
+        font-size: auto;
+        cursor: pointer;
+    }
+    .head-nav{
+        padding: 10px;
+        display: flex;
+        
+    }
+    .head-nav i{
+        margin: 10px;
+    }
+    input{
+        margin:7px;
+    }
+    .icon-button{
+        display: none;
+    }
+    
+    @media (Max-width:1023px){ 
+        .menus button{
+            display: none;
+            
+        }
+        .icon-button {
+         display: block;
+          }
+
+        }
+    @media (min-width:1024px){
+
+        }
+
+        
+    
