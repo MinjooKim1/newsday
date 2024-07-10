@@ -93,6 +93,9 @@
         .icon-button {
          display: block;
           }
+        span {
+            display: none;
+        }
 
         }
     @media (min-width:1024px){
