@@ -42,11 +42,18 @@ const render = () => {
           </div>
           <div class="col-lg-8">
             <h2>${news.title}</h2>
-            <p>${news.description.substr(0, 50) + "..."}</p>
+            <p>${
+              news.description == ""
+                ? "no description"
+                : news.description || news.description.length > 200
+                ? news.description.substring(0, 200) + "..."
+                : news.description
+            } 
+            </p>
+            <div class=source> ${news.source.name}  ${(news.publishedAt =
+          moment().startOf("day").fromNow())} </div>
           </div>
-          <div> ${news.source.name} * ${(news.publishedAt = moment()
-          .startOf("day")
-          .fromNow())} </div>
+          
         </div>`
     )
     .join("");
