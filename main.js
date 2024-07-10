@@ -3,14 +3,13 @@ let inputArea = document.getElementById("input-area");
 
 const getLatestNews = async () => {
   let url = new URL(
-    `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines`
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`
   );
 
   const response = await fetch(url);
   const data = await response.json();
   newsList = data.articles;
   render();
-  console.log("rrr", newsList);
 };
 getLatestNews();
 
