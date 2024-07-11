@@ -53,13 +53,12 @@ const searchNews = async () => {
 };
 
 //find news by categories
-const getNewsByCategory = (event) => {
+const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
   url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?category=${category}`
   );
-  getNews();
-  if (ca) document.getElementById("searchInput").value = "";
+  await getNews();
 };
 
 //find news by search
