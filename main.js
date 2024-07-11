@@ -7,15 +7,34 @@ menus.forEach((menu) =>
 );
 
 const getNews = async () => {
-  const response = await fetch(url);
-  const data = await response.json();
-  newsList = data.articles;
-  console.log(data);
-  render();
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (response.status === 200) {
+      if (data.articles.length === 0) {
+        throw new Error("No result found");
+      }
+      newsList = data.articles;
+      render();
+    } else {
+      throw new Error(data.message);
+    }
+    newsList = data.articles;
+    render();
+  } catch (error) {
+    errorRender(error.message);
+  }
 };
 let url = new URL(
   `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`
 );
+
+const mainPage = async () => {
+  url = new URL(
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
+  );
+  await getNews();
+};
 
 //start interface road
 const getLatestNews = () => {
@@ -24,7 +43,6 @@ const getLatestNews = () => {
   );
   getNews();
 };
-getLatestNews();
 
 //side menu
 const openNav = () => {
@@ -71,6 +89,7 @@ const searchByKeyword = () => {
   getNews();
 };
 
+// enter key for search function
 inputArea.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     searchByKeyword();
@@ -79,14 +98,10 @@ inputArea.addEventListener("keydown", (event) => {
 
 //visualization UI
 const render = () => {
-  let newsHTML;
-  if (newsList.length === 0) {
-    newsHTML = '<p class="no-results"> no results found.</p>';
-  } else {
-    newsHTML = newsList
-      .map(
-        (news) =>
-          `<div class="row news">
+  const newsHTML = newsList
+    .map(
+      (news) =>
+        `<div class="row news">
           <div class="col-lg-4">
             <img
               class="news-img-size"
@@ -103,12 +118,21 @@ const render = () => {
                  : news.description
              }</p>
             <div class=source> ${news.source.name}  ${(news.publishedAt =
-            moment().startOf("day").fromNow())} </div>
+          moment().startOf("day").fromNow())} </div>
           </div>
         </div>`
-      )
-      .join("");
-  }
+    )
+    .join("");
 
   document.getElementById("news-board").innerHTML = newsHTML;
 };
+
+const errorRender = (errorMessage) => {
+  const errorHTML = `<div class="alert alert-danger" role="alert">
+    ${errorMessage}
+  </div>`;
+  document.getElementById("news-board").innerHTML = errorHTML;
+  console.log("eee", errorHTML);
+};
+
+getLatestNews();

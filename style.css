@@ -67,6 +67,7 @@
         max-width: 100%;
         background-color: pink;
         text-align: center;
+    }
     
     .side-menu-list button:hover {
         background-color: burlywood;
@@ -115,4 +116,3 @@
         }
 
         
-    
