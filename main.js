@@ -6,6 +6,12 @@ menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
 
+const mainPage = async () => {
+  url = new URL(
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
+  );
+  await getNews();
+};
 const getNews = async () => {
   try {
     const response = await fetch(url);
@@ -28,13 +34,6 @@ const getNews = async () => {
 let url = new URL(
   `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`
 );
-
-const mainPage = async () => {
-  url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
-  );
-  await getNews();
-};
 
 //start interface road
 const getLatestNews = () => {
