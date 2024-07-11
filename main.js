@@ -20,7 +20,7 @@ let url = new URL(
 //start interface road
 const getLatestNews = () => {
   url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&page=${page}&pageSize=${PAGE_SIZE}`
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
   );
   getNews();
 };
@@ -82,7 +82,7 @@ const render = () => {
                 onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU';" />
           </div>
           <div class="col-lg-8">
-            <h2>${news.title}</h2>
+            <h4>${news.title}</h4>
             <p>${
               news.description == ""
                 ? "no description"

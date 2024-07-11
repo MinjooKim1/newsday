@@ -26,6 +26,7 @@
 }
 .news{
     border-bottom: 1px solid black;
+
 }
 .side-menu{
     height: 100%;
@@ -83,6 +84,10 @@
     }
     .icon-button{
         display: none;
+    }
+    .search-btn{
+        border: 1px solid ;
+        border-radius: 1px;
     }
     
     .source {
