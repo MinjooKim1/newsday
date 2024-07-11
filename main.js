@@ -1,4 +1,5 @@
-const API_KEY = `b0bd854324ca4848b08169ada4709bc1`;
+const API_KEY =
+  "http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines";
 let newsList = [];
 let inputArea = document.getElementById("input-area");
 const menus = document.querySelectorAll(".menus button");
@@ -7,7 +8,7 @@ menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
 let url = new URL(
-  `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`
+  `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines&`
 );
 
 const getNews = async () => {
@@ -19,7 +20,7 @@ const getNews = async () => {
 
 const getLatestNews = async () => {
   let url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&apiKey=${API_KEY}`
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us`
   );
   getNews;
 };
