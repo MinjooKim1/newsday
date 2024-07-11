@@ -5,17 +5,19 @@ console.log(menus);
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
-let url = new URL(
-  `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`
-);
 
 const getNews = async () => {
   const response = await fetch(url);
   const data = await response.json();
   newsList = data.articles;
+  console.log(data);
   render();
 };
+let url = new URL(
+  `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`
+);
 
+//start interface road
 const getLatestNews = () => {
   url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
@@ -24,6 +26,7 @@ const getLatestNews = () => {
 };
 getLatestNews();
 
+//side menu
 const openNav = () => {
   document.getElementById("side-menu").style.width = "250px";
 };
@@ -40,6 +43,7 @@ const searchBox = () => {
   }
 };
 
+// search function
 const searchNews = () => {
   const keyword = document.getElementById("searchInput").value;
   url = new URL(
@@ -47,6 +51,7 @@ const searchNews = () => {
   );
 };
 
+//find news by categories
 const getNewsByCategory = (event) => {
   const category = event.target.textContent.toLowerCase();
   url = new URL(
@@ -56,6 +61,7 @@ const getNewsByCategory = (event) => {
   if (ca) document.getElementById("searchInput").value = "";
 };
 
+//find news by search
 const searchByKeyword = () => {
   const keyword = document.getElementById("searchInput").value;
   url = new URL(
@@ -63,6 +69,7 @@ const searchByKeyword = () => {
   );
 };
 
+//visualization UI
 const render = () => {
   const newsHTML = newsList
     .map(
