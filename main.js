@@ -63,21 +63,30 @@ const getNewsByCategory = async (event) => {
 
 //find news by search
 const searchByKeyword = () => {
-  let keyword = document.getElementById("searchInput").value;
+  const keyword = document.getElementById("searchInput").value;
 
   url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?q=${keyword}`
   );
   getNews();
-  document.getElementById("searchInput").value = "";
 };
+
+inputArea.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    searchByKeyword();
+  }
+});
 
 //visualization UI
 const render = () => {
-  const newsHTML = newsList
-    .map(
-      (news) =>
-        `<div class="row news">
+  let newsHTML;
+  if (newsList.length === 0) {
+    newsHTML = '<p class="no-results"> no results found.</p>';
+  } else {
+    newsHTML = newsList
+      .map(
+        (news) =>
+          `<div class="row news">
           <div class="col-lg-4">
             <img
               class="news-img-size"
@@ -94,12 +103,12 @@ const render = () => {
                  : news.description
              }</p>
             <div class=source> ${news.source.name}  ${(news.publishedAt =
-          moment().startOf("day").fromNow())} </div>
+            moment().startOf("day").fromNow())} </div>
           </div>
-          
         </div>`
-    )
-    .join("");
+      )
+      .join("");
+  }
 
   document.getElementById("news-board").innerHTML = newsHTML;
 };
