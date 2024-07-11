@@ -20,9 +20,9 @@ let url = new URL(
 //start interface road
 const getLatestNews = () => {
   url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&page=${page}&pageSize=${PAGE_SIZE}`
   );
-  getNews;
+  getNews();
 };
 getLatestNews();
 
@@ -44,11 +44,12 @@ const searchBox = () => {
 };
 
 // search function
-const searchNews = () => {
+const searchNews = async () => {
   const keyword = document.getElementById("searchInput").value;
   url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&q=${keyword}`
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr?q=${keyword}`
   );
+  await getNews();
 };
 
 //find news by categories
@@ -57,7 +58,7 @@ const getNewsByCategory = (event) => {
   url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?category=${category}`
   );
-  getNews;
+  getNews();
   if (ca) document.getElementById("searchInput").value = "";
 };
 
