@@ -63,10 +63,13 @@ const getNewsByCategory = async (event) => {
 
 //find news by search
 const searchByKeyword = () => {
-  const keyword = document.getElementById("searchInput").value;
+  let keyword = document.getElementById("searchInput").value;
+
   url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?q=${keyword}`
   );
+  getNews();
+  document.getElementById("searchInput").value = "";
 };
 
 //visualization UI
@@ -83,14 +86,13 @@ const render = () => {
           </div>
           <div class="col-lg-8">
             <h4>${news.title}</h4>
-            <p>${
-              news.description == ""
-                ? "no description"
-                : news.description || news.description.length > 200
-                ? news.description.substring(0, 200) + "..."
-                : news.description
-            } 
-            </p>
+             <p>${
+               news.description == null || news.description == ""
+                 ? "내용없음"
+                 : news.description.length > 200
+                 ? news.description.substring(0, 200) + "..."
+                 : news.description
+             }</p>
             <div class=source> ${news.source.name}  ${(news.publishedAt =
           moment().startOf("day").fromNow())} </div>
           </div>
