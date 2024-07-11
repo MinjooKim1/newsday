@@ -1,15 +1,24 @@
+const API_KEY = `b0bd854324ca4848b08169ada4709bc1`;
 let newsList = [];
 let inputArea = document.getElementById("input-area");
+const menus = document.querySelectorAll(".menus button");
+console.log(menus);
+menus.forEach((menu) =>
+  menu.addEventListener("click", (event) => getNewsByCategory(event))
+);
+let url = new URL(`https://m-newstime.netlify.app/top-headlines?country=us`);
 
-const getLatestNews = async () => {
-  let url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`
-  );
-
+const getNews = async () => {
   const response = await fetch(url);
   const data = await response.json();
   newsList = data.articles;
   render();
+};
+
+const getLatestNews = async () => {
+  let url = new URL(`https://m-newstime.netlify.app/top-headlines?country=us`);
+  getNews;
+  console.log(newsList);
 };
 getLatestNews();
 
@@ -27,6 +36,21 @@ const searchBox = () => {
   } else {
     inputArea.style.display = "inline";
   }
+};
+
+const searchNews = () => {
+  const keyword = document.getElementById("searchInput").value;
+  url = new URL(
+    `https://m-newstime.netlify.app/top-headlines?country=us&q=${keyword}`
+  );
+};
+
+const getNewsByCategory = async (event) => {
+  const category = event.target.textContent.toLowerCase();
+  url = new URL(
+    `https://m-newstime.netlify.app/top-headlines?country=us&category=${category}`
+  );
+  getNews;
 };
 
 const render = () => {
