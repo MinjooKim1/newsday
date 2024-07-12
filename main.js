@@ -1,9 +1,14 @@
 let newsList = [];
 let inputArea = document.getElementById("input-area");
+//main menu
 const menus = document.querySelectorAll(".menus button");
-console.log(menus);
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
+);
+//side menu
+const sideMenu = document.querySelectorAll(".side-menu-list button");
+sideMenu.forEach((menu) =>
+  menu.addEventListener("click", (event) => getNewsByCategory2(event))
 );
 
 const mainPage = async () => {
@@ -43,7 +48,7 @@ const getLatestNews = () => {
   getNews();
 };
 
-//side menu
+//side menu open & close
 const openNav = () => {
   document.getElementById("side-menu").style.width = "250px";
 };
@@ -76,6 +81,15 @@ const getNewsByCategory = async (event) => {
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?category=${category}`
   );
   await getNews();
+};
+
+//side menu -> find news by categories
+const getNewsByCategory2 = (event) => {
+  const category2 = event.target.textContent.toLowerCase();
+  url = new URL(
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?category=${category2}`
+  );
+  getNews();
 };
 
 //find news by search
