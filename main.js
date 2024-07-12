@@ -8,7 +8,7 @@ menus.forEach((menu) =>
 //side menu
 const sideMenu = document.querySelectorAll(".side-menu-list button");
 sideMenu.forEach((menu) =>
-  menu.addEventListener("click", (event) => getNewsByCategory2(event))
+  menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
 
 const mainPage = async () => {
@@ -81,15 +81,6 @@ const getNewsByCategory = async (event) => {
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?category=${category}`
   );
   await getNews();
-};
-
-//side menu -> find news by categories
-const getNewsByCategory2 = (event) => {
-  const category2 = event.target.textContent.toLowerCase();
-  url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?category=${category2}`
-  );
-  getNews();
 };
 
 //find news by search
