@@ -13,7 +13,8 @@ sideMenu.forEach((menu) =>
 
 let totalResults = 0;
 let page = 1;
-const pageSize = 10;
+let totalPage = 0;
+const PAGE_SIZE = 10;
 const groupSize = 5;
 
 const mainPage = async () => {
@@ -24,6 +25,8 @@ const mainPage = async () => {
 };
 const getNews = async () => {
   try {
+    url.searchParams.set("page", page); //=> &page=page
+    url.searchParams.set("pageSize", PAGE_SIZE);
     const response = await fetch(url);
     const data = await response.json();
     if (response.status === 200) {
@@ -32,6 +35,7 @@ const getNews = async () => {
       }
       newsList = data.articles;
       totalResults = data.totalResults;
+      totalPage = Math.ceil(data.totalResults / PAGE_SIZE);
       render();
       paginationRender();
     } else {
@@ -156,15 +160,23 @@ const paginationRender = () => {
   const pageGroup = Math.ceil(page / groupSize);
   //lastPage
   const lastPage = pageGroup * groupSize;
+  //last page < 5 ? lastpage = totalPage
+  if (lastPage > totalPage) {
+    lastPage = totalPage;
+  }
+
   //firstPage
-  const firstPage = lastPage - (pageGroup - 1);
+  const firstPage =
+    lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
 
   let paginationHTML = ``;
 
   for (let i = firstPage; i <= lastPage; i++) {
-    paginationHTML += `<li class="page-item"><a class="page-link" href="#">${i}</a></li>`;
+    paginationHTML += `<li class="page-item ${
+      i === page ? "active" : ""
+    }" onclick="moveToPage(${i})"><a class="page-link" href="#">${i}</a></li>`;
   }
-  document.querySelectorAll(".pagination").innerHTML = paginationHTML;
+  document.querySelector(".pagination").innerHTML = paginationHTML;
   //    <nav aria-label="Page navigation example">
   //   <ul class="pagination">
   //     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -174,6 +186,11 @@ const paginationRender = () => {
   //     <li class="page-item"><a class="page-link" href="#">Next</a></li>
   //   </ul>
   // </nav>
+};
+const moveToPage = async (pageNum) => {
+  console.log("og", pageNum);
+  page = pageNum;
+  await getNews();
 };
 
 getLatestNews();
