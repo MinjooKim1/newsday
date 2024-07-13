@@ -98,6 +98,11 @@
     .source {
         color: rgb(91, 149, 236);
     }
+    .pagination{
+        display: flex;
+        justify-content: center;
+        margin-top: 1em;
+    }
     @media (Max-width:1023px){ 
         .menus button{
             display: none;
