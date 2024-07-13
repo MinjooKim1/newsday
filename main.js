@@ -11,6 +11,11 @@ sideMenu.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
 
+let totalResults = 0;
+let page = 1;
+const pageSize = 10;
+const groupSize = 5;
+
 const mainPage = async () => {
   url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr`
@@ -26,7 +31,9 @@ const getNews = async () => {
         throw new Error("No result found");
       }
       newsList = data.articles;
+      totalResults = data.totalResults;
       render();
+      paginationRender();
     } else {
       throw new Error(data.message);
     }
@@ -137,6 +144,36 @@ const errorRender = (errorMessage) => {
   </div>`;
   document.getElementById("news-board").innerHTML = errorHTML;
   console.log("eee", errorHTML);
+};
+
+const paginationRender = () => {
+  //totalResult,
+  //page
+  //pagesize
+  //totalPage
+  //groupSize
+  //pageGroup
+  const pageGroup = Math.ceil(page / groupSize);
+  //lastPage
+  const lastPage = pageGroup * groupSize;
+  //firstPage
+  const firstPage = lastPage - (pageGroup - 1);
+
+  let paginationHTML = ``;
+
+  for (let i = firstPage; i <= lastPage; i++) {
+    paginationHTML += `<li class="page-item"><a class="page-link" href="#">${i}</a></li>`;
+  }
+  document.querySelectorAll(".pagination").innerHTML = paginationHTML;
+  //    <nav aria-label="Page navigation example">
+  //   <ul class="pagination">
+  //     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+  //     <li class="page-item"><a class="page-link" href="#">1</a></li>
+  //     <li class="page-item"><a class="page-link" href="#">2</a></li>
+  //     <li class="page-item"><a class="page-link" href="#">3</a></li>
+  //     <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  //   </ul>
+  // </nav>
 };
 
 getLatestNews();
