@@ -36,6 +36,7 @@ const getNews = async () => {
       newsList = data.articles;
       totalResults = data.totalResults;
       totalPage = Math.ceil(data.totalResults / PAGE_SIZE);
+      console.log("data", newsList);
       render();
       paginationRender();
     } else {
@@ -88,6 +89,7 @@ const searchNews = async () => {
 //find news by categories
 const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
+  console.log("cate", category);
   url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?category=${category}`
   );
@@ -105,8 +107,8 @@ const searchByKeyword = async () => {
 };
 
 // enter key for search function
-inputArea.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
+inputArea.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
     searchByKeyword();
   }
 });
@@ -168,10 +170,22 @@ const paginationRender = () => {
   //firstPage
   const firstPage =
     lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+  let paginationHTML = ``;
+  let last = pageGroup * 5;
+  if (last > totalPage) {
+    last = totalPage;
+  }
+  let first = last - 4 <= 0 ? 1 : last - 4;
 
-  let paginationHTML = `    <li class="page-item disabled">
-      <span class="page-link">Previous</span>
+  if (page > 1) {
+    paginationHTML = `
+  <li class="page-item " onclick="moveToPage(1)">
+      <span class="page-link">&lt&lt</span>
+    </li>
+  <li class="page-item " onclick="moveToPage(${page - 1})">
+      <span class="page-link">&lt</span>
     </li>`;
+  }
 
   for (let i = firstPage; i <= lastPage; i++) {
     paginationHTML += `
@@ -179,21 +193,17 @@ const paginationRender = () => {
       i === page ? "active" : ""
     }" onclick="moveToPage(${i})"><a class="page-link" href="#">${i}</a></li>`;
   }
-  paginationHTML += `<li class="page-item"><a class="page-link" href="#">Next</a></li>`;
-  document.querySelector(".pagination").innerHTML = paginationHTML;
 
-  //    <nav aria-label="Page navigation example">
-  //   <ul class="pagination">
-  //     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-  //     <li class="page-item"><a class="page-link" href="#">1</a></li>
-  //     <li class="page-item"><a class="page-link" href="#">2</a></li>
-  //     <li class="page-item"><a class="page-link" href="#">3</a></li>
-  //     <li class="page-item"><a class="page-link" href="#">Next</a></li>
-  //   </ul>
-  // </nav>
+  if (page < totalPage) {
+    paginationHTML += `
+  <li class="page-item" onclick="moveToPage(${
+    page + 1
+  })"><a class="page-link" href="#">&gt;</a></li><li class="page-item" onclick="moveToPage(${totalPage})"><a class="page-link" href="#">&gt;&gt;</a></li>`;
+  }
+
+  document.querySelector(".pagination").innerHTML = paginationHTML;
 };
 const moveToPage = async (pageNum) => {
-  console.log("og", pageNum);
   page = pageNum;
   await getNews();
 };
