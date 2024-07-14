@@ -46,6 +46,7 @@ const getNews = async () => {
     render();
   } catch (error) {
     errorRender(error.message);
+    paginationRender();
   }
 };
 let url = new URL(
@@ -115,7 +116,7 @@ inputArea.addEventListener("keydown", (e) => {
 
 //visualization UI
 const render = () => {
-  const newsHTML = newsList
+  let newsHTML = newsList
     .map(
       (news) =>
         `<div class="row news">
